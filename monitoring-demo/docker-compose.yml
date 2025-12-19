@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  # Dịch vụ 1: Prometheus (Cơ sở dữ liệu)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus_demo
+    volumes:
+      # Nạp file cấu hình ở Bước 1 vào trong container
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090" # Cổng truy cập web của Prometheus
+
+  # Dịch vụ 2: Grafana (Giao diện vẽ biểu đồ)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana_demo
+    ports:
+      - "3000:3000" # Cổng truy cập web của Grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin # Đặt mật khẩu mặc định là admin
+    depends_on:
+      - prometheus

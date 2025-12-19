@@ -1,0 +1,9 @@
+global:
+  scrape_interval: 5s # Cứ 5 giây sẽ đi lấy dữ liệu một lần (để demo cho nhanh thấy)
+
+scrape_configs:
+  - job_name: 'spring-boot-app'
+    metrics_path: '/actuator/prometheus' # Đường dẫn bí mật mà Java App đã mở
+    static_configs:
+      # host.docker.internal là cách Docker nhìn thấy máy tính thật (Localhost) của bạn
+      - targets: ['192.168.1.2:8080']
